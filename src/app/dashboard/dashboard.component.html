@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Customer Details</h2>
+<p-dataTable [value]="customers" [loading]="loading">
+  <p-column field="id" header="Id" [sortable]="true"></p-column>
+  <p-column field="name" header="Name" [sortable]="true">  <ng-template let-col let-customer="rowData" pTemplate="body">
+    <a routerLink="/customer/{{customer.id}}" style="color:#337ab7">{{customer.name}}</a>
+  </ng-template></p-column>
+  <p-column field="email" header="Email" [sortable]="true"></p-column>
+  <p-column field="phone" header="Phone" [sortable]="true"></p-column>
+  <p-column field="branch_id" header="Branch_id"></p-column>
+  <p-column field="status" header="status" [sortable]="true"></p-column>
+</p-dataTable>
+</div>

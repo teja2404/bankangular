@@ -1,3 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/create_customer">Add New</a>
+</nav>
+<router-outlet></router-outlet>
+<p-growl [value]="messageService.messages"></p-growl>

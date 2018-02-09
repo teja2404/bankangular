@@ -1,0 +1,36 @@
+<div class="container">
+  <form #customerForm="ngForm" (ngSubmit)="create(customerForm.value, customerForm.valid)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control"  [(ngModel)]="customer.name" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control"  [(ngModel)]="customer.email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="number" class="form-control"  [(ngModel)]="customer.phone" id="phone" name="phone" required>
+    </div>
+
+    <!--<div *ngIf="customerForm.invalid"-->
+         <!--class="alert alert-danger">-->
+
+      <!--<div *ngIf="customerForm.name.errors.required">-->
+        <!--Name is required.-->
+      <!--</div>-->
+      <!--<div *ngIf="customerForm.email.errors.required">-->
+        <!--Name is required.-->
+      <!--</div>-->
+      <!--<div *ngIf="customerForm..errors.required">-->
+        <!--Name is required.-->
+      <!--</div>-->
+
+    <!--</div>-->
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>

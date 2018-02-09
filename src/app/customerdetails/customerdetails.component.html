@@ -1,0 +1,49 @@
+<div *ngIf="customer" class="container">
+  <h2>{{ customer.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{customer.id}}</div>
+  <div>
+    <label>Name:
+      <input class="form-control" [(ngModel)]="customer.name" placeholder="name" required/>
+    </label>
+  </div>
+  <div>
+    <label>Email:
+      <input class="form-control" [(ngModel)]="customer.email" placeholder="name" required/>
+    </label>
+  </div>
+  <div>
+    <label>Phone:
+      <input class="form-control" [(ngModel)]="customer.phone" placeholder="name" required/>
+    </label>
+  </div>
+  <div>
+    <label>Branch:
+      <input class="form-control" [(ngModel)]="customer.branch_id" placeholder="name" readonly/>
+    </label>
+  </div>
+  <div>
+    <label>phone:
+      <input class="form-control" [(ngModel)]="customer.phone" placeholder="name"/>
+    </label>
+  </div>
+  <div>
+    <label>status:
+      <input class="form-control" [(ngModel)]="customer.status" placeholder="name" readonly/>
+    </label>
+    <button *ngIf="customer.status == false" pButton type="button"  label="Activate" class="ui-button-success" (click)="activate(customer)"></button>
+    <button *ngIf="customer.status == true" pButton type="button"  label="Deactivate" class="ui-button-success" (click)="deactivate(customer)"></button>
+  </div>
+  <button pButton type="button"  label="Dashboard" class="ui-button-info" (click)="goBack()"></button>
+  <button pButton type="button"  label="Update" class="ui-button-success" (click)="update(customer)"></button>
+  <nav>
+
+    <a *ngIf="customer.status == true" [routerLink]="['/customer/'+customer.id, {outlets: {'accountlist': ['list',customer.id]}}]">List account</a>
+  </nav>
+</div>
+
+<router-outlet name="accountlist"></router-outlet>
+
+
+
+
+
