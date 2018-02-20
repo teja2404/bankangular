@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {Customer} from "./customer";
-// import {MessageService} from "./message.service";
+import {MessageService} from "./message.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,37 +17,36 @@ export class BankService {
 
   private bank_api = 'http://localhost:3001/api/v1/1/customer';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private messageService:MessageService) { }
 
   createcustomer(customer: Customer): Observable<Customer[]> {
-    return this.http.post(`${this.bank_api}/create`, customer, httpOptions).map(this.extractData).catch(this.handleError);
+    return this.http.post(`${this.bank_api}/create`, customer, httpOptions).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
 
 
   getcustomers(): Observable<Customer[]> {
-    return this.http.get(`http://localhost:3001/api/v1/1/customers`).map(this.extractData).catch(this.handleError);
+    return this.http.get(`http://localhost:3001/api/v1/1/customers`).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
 
   getcustomer(id: number): Observable<Customer[]> {
     const url = `${this.bank_api}/${id}`;
-    return this.http.get(url).map(this.extractData).catch(this.handleError);
+    return this.http.get(url).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
 
   updatecustomer(customer: Customer): Observable<Customer[]> {
     const url = `${this.bank_api}/${customer.id}/update`;
-    return this.http.put(url, customer, httpOptions).map(this.extractData).catch(this.handleError);
+    return this.http.put(url, customer, httpOptions).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
 
   deactivate(customer: Customer): Observable<Customer[]> {
-    return this.http.get(`${this.bank_api}/${customer.id}/deactivate`).map(this.extractData).catch(this.handleError);
+    return this.http.get(`${this.bank_api}/${customer.id}/deactivate`).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
   activate(customer: Customer): Observable<Customer[]> {
-    return this.http.get(`${this.bank_api}/${customer.id}/activate`).map(this.extractData).catch(this.handleError);
+    return this.http.get(`${this.bank_api}/${customer.id}/activate`).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
 
   private extractData(res: Response) {
     const body = res;
-    // this.success(body["message"])
     return body || {};
   }
 
@@ -61,20 +60,9 @@ export class BankService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.log(errMsg)
-    // this.error(errMsg)
-    return Observable.throw(errMsg);
+    console.log(error)
+    return Observable.throw(error["error"].error);
   }
-
-  // private success(message){
-  //   this.messageService.success('Success',message)
-  //
-  // }
-  //
-  // private error(message){
-  //   this.messageService.error('Error',message)
-  //
-  // }
 
 
 }

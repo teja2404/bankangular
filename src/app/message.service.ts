@@ -5,7 +5,8 @@ import {Message} from "primeng/primeng";
 export class MessageService {
 
   public messages: Message[] = [];
-
+  public life:	number=	8000
+  public sticky: boolean
   constructor() { }
 
   public add(message: Message) {

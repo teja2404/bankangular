@@ -1,6 +1,7 @@
+<p-growl [value]="messageService.messages" [immutable]="false" [life]="2000"></p-growl>
 <nav>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/create_customer">Add New</a>
 </nav>
 <router-outlet></router-outlet>
-<p-growl [value]="messageService.messages"></p-growl>
+<!--{{messageService.messages}}-->

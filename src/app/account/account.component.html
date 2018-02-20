@@ -1,68 +1,110 @@
-<div *ngIf= "account" class="container">
-  <h2> Account Details</h2>
-  <div ><span>id: </span>{{account.id}}</div>
-  <div>
-    <label>Customer_id:
-      <input class="form-control" [(ngModel)]="account.customer_id" placeholder="name"/>
-    </label>
-  </div>
-  <div>
-    <label>balance:
-      <input class="form-control" [(ngModel)]="account.balance" placeholder="name"/>
-    </label>
-  </div>
-  <div>
-    <label>Branch:
-      <input class="form-control"[(ngModel)]="account.branch_id" placeholder="name" readonly/>
-    </label>
-  </div>
-  <div>
-    <label>Type:
-      <input class="form-control" [(ngModel)]="account.account_type" placeholder="name"/>
-    </label>
-  </div>
-  <div>
-    <label>status:
-      <input class="form-control" [(ngModel)]="account.status" placeholder="name" readonly/>
-    </label>
-    <button *ngIf="account.status == false" pButton type="button"  label="Activate" class="ui-button-success" (click)="account_activate(account)"></button>
-    <button *ngIf="account.status == true" pButton type="button"  label="Deactivate" class="ui-button-success" (click)="account_deactivate(account)"></button>
-  </div>
-  <button pButton type="button"  label="go back" class="ui-button-info" (click)="goBack()"></button>
-  <button pButton type="button"  label="transfer" class="ui-button-success" (click)="transfer_activate()"></button>
-  <!--<button pButton type="button"  label="Update" class="ui-button-success" (click)="update(account)"></button>-->
+<div *ngIf= "account" class="ui-g-7">
+  <div class="ui-g-7">
+
+    <h2> Account Details</h2>
+    <div ><span>Account id: </span>{{account.id}}</div>
+    <div>
+      <label>Customer_id:
+        <input class="form-control" [(ngModel)]="account.customer_id" placeholder="name"/>
+      </label>
+    </div>
+    <div>
+      <label>balance:
+        <input class="form-control" [(ngModel)]="account.balance" placeholder="balance" readonly/>
+      </label>
+    </div>
+    <div>
+      <label>Branch:
+        <input class="form-control"[(ngModel)]="account.branch_id" placeholder="branch id" readonly/>
+      </label>
+    </div>
+    <div>
+      <label>Type:
+        <input class="form-control" [(ngModel)]="account.account_type" placeholder="type"/>
+      </label>
+    </div>
+    <div>
+      <label>status:
+        <input class="form-control" [(ngModel)]="account.status" placeholder="status" readonly/>
+      </label>
+      <button *ngIf="account.status == false" pButton type="button"  label="Activate" class="ui-button-success" (click)="account_activate(account)"></button>
+      <button *ngIf="account.status == true" pButton type="button"  label="Deactivate" class="ui-button-success" (click)="account_deactivate(account)"></button>
+    </div>
+    <button pButton type="button"  label="go back" class="ui-button-secondary" (click)="goBack()"></button>
+    <button pButton type="button"  label="transfer" class="ui-button-info" (click)="transfer_activate()"></button>
+    <button pButton type="button"  label="Deposit" class="ui-button-info" (click)="deposit_activate()"></button>
+    <button pButton type="button"  label="Withdraw" class="ui-button-info" (click)="withdraw_activate()"></button>
+    <!--<button pButton type="button"  label="Update" class="ui-button-success" (click)="update()"></button>-->
 </div>
+    <div *ngIf="transfer" class="ui-g-4">
+      <h2>Tranaction details</h2>
+      <form #transferForm="ngForm" (ngSubmit)="transaction(transferForm.value, transferForm.valid)">
+        <div class="form-group">
+          <label for="to_account">To Account</label>
+          <input type="number" class="form-control"  [(ngModel)]="transfer_details.to_account" id="to_account" name="to_account" required>
+        </div>
 
-<div *ngIf="transfer" class="container">
-  <form #transferForm="ngForm" (ngSubmit)="transaction(transferForm.value, transferForm.valid)">
-    <div class="form-group">
-      <label for="to_account">To Account</label>
-      <input type="number" class="form-control"  [(ngModel)]="transfer_details.to_account" id="to_account" name="to_account" required>
+        <div class="form-group">
+          <label for="frm_account">From Account</label>
+          <input type="number" class="form-control"  [(ngModel)]="account.id" (ngModelChange)="transfer_details.frm_account = $event" id="frm_account" name="frm_account" required>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount to Transfer</label>
+          <input type="number" class="form-control"  [(ngModel)]="transfer_details.amount" id="amount" name="amount" required>
+        </div>
+
+        <!--<div class="form-group">-->
+        <!--<label for="branch">Branch</label>-->
+        <!--<input type="number" class="form-control"  [(ngModel)]="customer.branch_id" id="branch"  name="branch" required readonly>-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+        <!--<label for="status">Status</label>-->
+        <!--<input type="text" class="form-control" id="status"   [(ngModel)]="customer.status" required value="active" name="status" readonly>-->
+        <!--</div>-->
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+      </form>
     </div>
 
-    <div class="form-group">
-      <label for="frm_account">From Account</label>
-      <input type="number" class="form-control"  [(ngModel)]="transfer_details.frm_account" id="frm_account" name="frm_account" required>
+    <div *ngIf="deposit" class="ui-g-4">
+      <h2>Deposit Details</h2>
+      <form #depositForm="ngForm" (ngSubmit)="deposit_amount(account.id,amount)">
+        <div class="form-group">
+          <label for="frm_account">Account id</label>
+          <input type="number" class="form-control"  [(ngModel)]="account.id" id="account_details" name="frm_account" required>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount to Add</label>
+          <input type="number" class="form-control"  [(ngModel)]="amount" id="amount_details" name="amount" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+      </form>
     </div>
 
-    <div class="form-group">
-      <label for="amount">Ammount to Transfer</label>
-      <input type="number" class="form-control"  [(ngModel)]="transfer_details.amount" id="amount" name="amount" required>
-    </div>
+  <div *ngIf="withdraw" class="ui-g-4">
+    <h2>WithDraw Details</h2>
+    <form #withdrawForm="ngForm" (ngSubmit)="withdraw_amount(account.id,amount)">
+      <div class="form-group">
+        <label for="account_number">Account id</label>
+        <input type="number" class="form-control"  [(ngModel)]="account.id" id="account_number" name="account_number" required>
+      </div>
 
-    <!--<div class="form-group">-->
-    <!--<label for="branch">Branch</label>-->
-    <!--<input type="number" class="form-control"  [(ngModel)]="customer.branch_id" id="branch"  name="branch" required readonly>-->
-    <!--</div>-->
+      <div class="form-group">
+        <label for="amount">Amount to Withdraw</label>
+        <input type="number" class="form-control"  [(ngModel)]="amount" id="with_draw_amount" name="amount" required>
+      </div>
 
-    <!--<div class="form-group">-->
-    <!--<label for="status">Status</label>-->
-    <!--<input type="text" class="form-control" id="status"   [(ngModel)]="customer.status" required value="active" name="status" readonly>-->
-    <!--</div>-->
+      <button type="submit" class="btn btn-success">Submit</button>
 
-    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
 
-  </form>
+  <!--</div>-->
 </div>
-
 

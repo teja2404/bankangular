@@ -8,7 +8,7 @@ import {Customer} from "../customer";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private customers: Customer[]
+  public customers: Customer[]
   constructor(private bankservice:BankService) { }
 
   ngOnInit() {

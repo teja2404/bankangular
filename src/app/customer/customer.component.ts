@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, Validators} from "@ang
 import {Customer} from "../customer";
 import {BankService} from "../bank.service";
 import {Location} from "@angular/common";
+import {MessageService} from "../message.service";
+
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -10,8 +12,9 @@ import {Location} from "@angular/common";
 })
 export class CustomerComponent implements OnInit {
 
-  constructor(private bankservice:BankService,private location:Location) { }
+  constructor(private bankservice:BankService,private location:Location,private msgservice:MessageService) { }
     customer = new Customer();
+  errorMgs: string;
   ngOnInit() {
   }
 
@@ -20,6 +23,6 @@ export class CustomerComponent implements OnInit {
   }
 
   create(customer){
-    this.bankservice.createcustomer(customer).subscribe(()=>this.goBack())
+    this.bankservice.createcustomer(customer).subscribe(()=>{this.goBack(),this.msgservice.success("Success","Successfully created customer")},(error) => this.msgservice.error("Error",error));
   }
 }

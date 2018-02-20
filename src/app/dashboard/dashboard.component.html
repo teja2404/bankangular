@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Customer Details</h2>
-<p-dataTable [value]="customers" [loading]="loading">
+<p-dataTable [value]="customers">
   <p-column field="id" header="Id" [sortable]="true"></p-column>
   <p-column field="name" header="Name" [sortable]="true">  <ng-template let-col let-customer="rowData" pTemplate="body">
     <a routerLink="/customer/{{customer.id}}" style="color:#337ab7">{{customer.name}}</a>
