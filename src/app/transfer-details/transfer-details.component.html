@@ -1,3 +1,9 @@
-<p>
-  transfer-details works!
-</p>
+<div class="col-md-6" *ngIf="display">
+
+<p-dataTable [value]="transactions">
+  <p-column field="details" header="Details"></p-column>
+  <p-column field="created_at" header="Date" [sortable]="true">  <ng-template let-col let-transaction="rowData" pTemplate="body">
+    {{transaction.created_at | date }}
+  </ng-template></p-column>
+</p-dataTable>
+</div>

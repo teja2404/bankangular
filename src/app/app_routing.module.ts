@@ -12,7 +12,7 @@ const routes:Routes =[
   {path:'create_customer',component:CustomerComponent},
   {path:'customer/:id',component:CustomerdetailsComponent,children: [
       { path: 'list/:id', component: AccountComponent, outlet: 'accountlist',children:[
-            {path:'get_transaction',component:TransferDetailsComponent,outlet: 'transactionlist'},
+            {path:'get_transaction/:id',component:TransferDetailsComponent,outlet: 'transactionlist'},
         ] },
     ]},
 

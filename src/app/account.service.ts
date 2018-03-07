@@ -58,11 +58,13 @@ export class AccountService {
     const url = `${this.bank_api}/${details.frm_account}/transfer`;
     return this.http.post(url, details, httpOptions).map(this.extractData).catch((response: any) => this.handleError(response));;
   }
+  gettranctionsdetails(id: number): Observable<any[]>{
+    const url = `${this.bank_api}/${id}/transactions`;
+    return this.http.get(url).map(this.extractData).catch((response: any) => this.handleError(response));
+  }
 
   private extractData(res: Response) {
     const body = res;
-    // this.messageservice.success('Success',body["message"])
-    console.log(body)
     return body || {};
   }
 
